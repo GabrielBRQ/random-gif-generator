@@ -1,4 +1,5 @@
 import gif from './giphy.gif';
+import loadGif from './loadGif.gif'
 
 const img = document.querySelector('img');
 const button = document.querySelector('button');
