@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import './style.css';
-import { changeGif } from './gif';
+import { changeGif, firstGif } from './gif';
 
 
-
+firstGif();
 changeGif();
