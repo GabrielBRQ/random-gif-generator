@@ -147,7 +147,7 @@ eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, styleElem
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   changeGif: () => (/* binding */ changeGif)\n/* harmony export */ });\nconst img = document.querySelector('img');\nconst button = document.querySelector('button');\nconst searchInput = document.querySelector('input')\n\nfunction changeGif(){\n    fetch('https://api.giphy.com/v1/gifs/translate?api_key=Jz6csfuw3YE5MzaJQYxcdeAYCyVMkFpS&s=search', {mode: 'cors'})\n    .then(function(response) {\n        return response.json();\n        })\n        .then(function(response) {\n        img.src = response.data.images.original.url;\n        });\n    button.addEventListener('click', function() {\n        const searchTerm = searchInput.value;\n        if(searchTerm){\n            fetch(`https://api.giphy.com/v1/gifs/translate?api_key=Jz6csfuw3YE5MzaJQYxcdeAYCyVMkFpS&s=${searchTerm}`, {mode: 'cors'})\n            .then(function(response) {\n            return response.json();\n            })\n            .then(function(response) {\n            img.src = response.data.images.original.url;\n            button.disabled = false;\n            button.style.backgroundColor = '#21262D';\n            button.style.cursor = 'pointer';\n            });\n    \n            button.disabled = true;\n            button.style.backgroundColor = '#363B42';\n            button.style.cursor = 'default';\n        }\n      });\n}\n\n\n\n//# sourceURL=webpack://random-gif-generator/./src/gif.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   changeGif: () => (/* binding */ changeGif),\n/* harmony export */   firstGif: () => (/* binding */ firstGif)\n/* harmony export */ });\n/* harmony import */ var _giphy_gif__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./giphy.gif */ \"./src/giphy.gif\");\n\n\nconst img = document.querySelector('img');\nconst button = document.querySelector('button');\nconst searchInput = document.querySelector('input');\nconst error = document.querySelector('span');\n\nfunction changeGif() {\n    function fetchGif() {\n      const searchTerm = searchInput.value;\n      if (searchTerm) {\n        fetch(`https://api.giphy.com/v1/gifs/translate?api_key=Jz6csfuw3YE5MzaJQYxcdeAYCyVMkFpS&s=${searchTerm}`, { mode: 'cors' })\n          .then(function(response) {\n            return response.json();\n          })\n          .then(function(response) {\n            if (response.data.images && response.data.images.original) {\n              img.src = response.data.images.original.url;\n              button.disabled = false;\n              button.style.backgroundColor = '#21262D';\n              button.style.cursor = 'pointer';\n              error.textContent = '';\n            } else {\n              error.textContent = 'No GIFs found for search.';\n            }\n          })\n          .catch(function(error) {\n            console.error('Ocorreu um erro na solicitação:', error);\n          });\n\n        button.disabled = true;\n        button.style.backgroundColor = '#363B42';\n        button.style.cursor = 'default';\n      }\n    }\n\n    button.addEventListener('click', fetchGif);\n    searchInput.addEventListener('keyup', function(event) {\n      if (event.key === 'Enter') {\n        fetchGif();\n      }\n    });\n}\n\nfunction firstGif(){\n  fetch(`https://api.giphy.com/v1/gifs/translate?api_key=Jz6csfuw3YE5MzaJQYxcdeAYCyVMkFpS&s=search`, { mode: 'cors' })\n  .then(function(response) {\n    return response.json();\n  })\n  .then(function(response) {\n    if (response.data.images && response.data.images.original) {\n      img.src = response.data.images.original.url;\n      button.disabled = false;\n      button.style.backgroundColor = '#21262D';\n      button.style.cursor = 'pointer';\n    } else {\n      img.src = _giphy_gif__WEBPACK_IMPORTED_MODULE_0__;\n    }\n  })\n}\n\n\n\n//# sourceURL=webpack://random-gif-generator/./src/gif.js?");
 
 /***/ }),
 
@@ -158,7 +158,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ \"./node_modules/lodash/lodash.js\");\n/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n/* harmony import */ var _gif__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./gif */ \"./src/gif.js\");\n\n\n\n\n\n\n(0,_gif__WEBPACK_IMPORTED_MODULE_2__.changeGif)();\n\n\n//# sourceURL=webpack://random-gif-generator/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ \"./node_modules/lodash/lodash.js\");\n/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n/* harmony import */ var _gif__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./gif */ \"./src/gif.js\");\n\n\n\n\n\n(0,_gif__WEBPACK_IMPORTED_MODULE_2__.firstGif)();\n(0,_gif__WEBPACK_IMPORTED_MODULE_2__.changeGif)();\n\n\n//# sourceURL=webpack://random-gif-generator/./src/index.js?");
 
 /***/ }),
 
@@ -170,6 +170,17 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var loda
 
 "use strict";
 eval("module.exports = __webpack_require__.p + \"fc2b5060f7accec5cf74.ttf\";\n\n//# sourceURL=webpack://random-gif-generator/./src/Roboto/Roboto-Regular.ttf?");
+
+/***/ }),
+
+/***/ "./src/giphy.gif":
+/*!***********************!*\
+  !*** ./src/giphy.gif ***!
+  \***********************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+eval("module.exports = __webpack_require__.p + \"b79f85ad7ff8f6a3b028.gif\";\n\n//# sourceURL=webpack://random-gif-generator/./src/giphy.gif?");
 
 /***/ })
 
