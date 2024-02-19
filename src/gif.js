@@ -6,6 +6,7 @@ const button = document.querySelector('button');
 const searchInput = document.querySelector('input');
 const error = document.querySelector('span');
 
+//Function to fetch gif to user
 function changeGif() {
     function fetchGif() {
       const searchTerm = searchInput.value;
@@ -43,6 +44,7 @@ function changeGif() {
     });
 }
 
+//Function to show the first gif to user
 function firstGif(){
   fetch(`https://api.giphy.com/v1/gifs/translate?api_key=Jz6csfuw3YE5MzaJQYxcdeAYCyVMkFpS&s=search`, { mode: 'cors' })
   .then(function(response) {
